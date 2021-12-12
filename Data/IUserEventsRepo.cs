@@ -3,7 +3,7 @@ using UserEventsApi.Models;
 
 namespace UserEventsApi.Data
 {
-    public interface IUserEventRepo
+    public interface IUserEventsRepo
     {
         IEnumerable<UserEvent> GetEvents();
 

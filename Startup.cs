@@ -31,7 +31,8 @@ namespace UserEventsApi
         {
             services.AddDbContext<UserEventsApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddSingleton<IUserEventRepo, UserEventRepo>();
+            services.AddScoped<IUserEventsRepo, SqlUserEventsRepo>();
+            //services.AddSingleton<IUserEventsRepo, UserEventsRepo>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

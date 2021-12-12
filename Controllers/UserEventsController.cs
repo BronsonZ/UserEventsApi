@@ -13,9 +13,9 @@ namespace UserEventsApi.Controllers
     [Route("api/userevents")]
     public class UserEventsController : ControllerBase
     {
-        private readonly IUserEventRepo repo;
+        private readonly IUserEventsRepo repo;
 
-        public UserEventsController(IUserEventRepo repo)
+        public UserEventsController(IUserEventsRepo repo)
         {
             this.repo = repo;
         }

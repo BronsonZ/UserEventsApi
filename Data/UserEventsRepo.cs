@@ -4,7 +4,7 @@ using System;
 
 namespace UserEventsApi.Data
 {
-    public class UserEventRepo : IUserEventRepo
+    public class UserEventsRepo : IUserEventsRepo
     {
         private readonly List<UserEvent> _events = new()
         {
