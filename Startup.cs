@@ -32,8 +32,10 @@ namespace UserEventsApi
             services.AddDbContext<UserEventsApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUserEventsRepo, SqlUserEventsRepo>();
-            //services.AddSingleton<IUserEventsRepo, UserEventsRepo>();
             services.AddControllers();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserEventsApi", Version = "v1" });

@@ -5,6 +5,7 @@ using UserEventsApi.Models;
 using UserEventsApi.Dtos;
 using System.Linq;
 using System;
+using AutoMapper;
 
 namespace UserEventsApi.Controllers
 {
@@ -14,17 +15,22 @@ namespace UserEventsApi.Controllers
     public class UserEventsController : ControllerBase
     {
         private readonly IUserEventsRepo repo;
+        private readonly IMapper mapper;
 
-        public UserEventsController(IUserEventsRepo repo)
+        public UserEventsController(IUserEventsRepo repo, IMapper mapper)
         {
             this.repo = repo;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<UserEventDto> GetEvents()
+        public ActionResult<IEnumerable<UserEventDto>> GetEvents()
         {
-            var events = repo.GetEvents().Select(userEvent => userEvent.AsDto());
-            return events;
+            //var events = repo.GetEvents().Select(userEvent => userEvent.AsDto());
+            var events = repo.GetEvents();
+
+            return Ok(mapper.Map<IEnumerable<UserEventDto>>(events));
+            
         }
 
         [HttpPost]
@@ -39,7 +45,8 @@ namespace UserEventsApi.Controllers
             };
 
             repo.AddEvent(newUserEvent);
-            return newUserEvent.AsDto();
+
+            return Ok(mapper.Map<UserEventDto>(newUserEvent));
         }
 
 
