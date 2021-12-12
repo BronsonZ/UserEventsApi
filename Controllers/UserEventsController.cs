@@ -38,11 +38,13 @@ namespace UserEventsApi.Controllers
         {
             var userEventModel = mapper.Map<UserEvent>(newEvent);
 
+            userEventModel.TimeStamp = DateTimeOffset.UtcNow;
+
             repo.AddEvent(userEventModel);
 
             repo.SaveChanges();
 
-            return Ok(newEvent);
+            return Ok(userEventModel);
         }
 
 

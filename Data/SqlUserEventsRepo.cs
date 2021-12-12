@@ -20,8 +20,6 @@ namespace UserEventsApi.Data
                 throw new ArgumentNullException(nameof(userEvent));
             }
 
-            userEvent.TimeStamp = DateTimeOffset.UtcNow;
-
             context.UserEvents.Add(userEvent);
 
         }
