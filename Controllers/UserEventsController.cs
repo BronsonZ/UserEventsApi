@@ -34,19 +34,15 @@ namespace UserEventsApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<UserEventDto> AddEvent(CreateUserEventDto newEvent)
+        public ActionResult<CreateUserEventDto> AddEvent(CreateUserEventDto newEvent)
         {
-            UserEvent newUserEvent = new()
-            {
-                Username = newEvent.Username,
-                ActionTaken = newEvent.ActionTaken,
-                Data = newEvent.Data,
-                TimeStamp = DateTimeOffset.UtcNow
-            };
+            var userEventModel = mapper.Map<UserEvent>(newEvent);
 
-            repo.AddEvent(newUserEvent);
+            repo.AddEvent(userEventModel);
 
-            return Ok(mapper.Map<UserEventDto>(newUserEvent));
+            repo.SaveChanges();
+
+            return Ok(newEvent);
         }
 
 

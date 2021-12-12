@@ -9,6 +9,7 @@ namespace UserEventsApi.Profiles
         public UserEventsProfile()
         {
             CreateMap<UserEvent, UserEventDto>();
+            CreateMap<CreateUserEventDto, UserEvent>();
         }
     }
 }

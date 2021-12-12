@@ -5,9 +5,10 @@ namespace UserEventsApi.Data
 {
     public interface IUserEventsRepo
     {
+        bool SaveChanges();
         IEnumerable<UserEvent> GetEvents();
 
-        UserEvent AddEvent(UserEvent userEvent);
+        void AddEvent(UserEvent userEvent);
 
     }
 }

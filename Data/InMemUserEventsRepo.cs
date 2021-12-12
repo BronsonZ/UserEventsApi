@@ -4,7 +4,7 @@ using System;
 
 namespace UserEventsApi.Data
 {
-    public class UserEventsRepo : IUserEventsRepo
+    public class InMemUserEventsRepo : IUserEventsRepo
     {
         private readonly List<UserEvent> _events = new()
         {
@@ -22,6 +22,16 @@ namespace UserEventsApi.Data
         public IEnumerable<UserEvent> GetEvents()
         {
             return _events;
+        }
+
+        public bool SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IUserEventsRepo.AddEvent(UserEvent userEvent)
+        {
+            throw new NotImplementedException();
         }
     }
 }

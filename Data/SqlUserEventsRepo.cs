@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UserEventsApi.Models;
 
@@ -12,15 +13,27 @@ namespace UserEventsApi.Data
         {
             this.context = context;
         }
-        public UserEvent AddEvent(UserEvent userEvent)
+        public void AddEvent(UserEvent userEvent)
         {
-            context.UserEvents.Append(userEvent);
-            return userEvent;
+            if( userEvent == null)
+            {
+                throw new ArgumentNullException(nameof(userEvent));
+            }
+
+            userEvent.TimeStamp = DateTimeOffset.UtcNow;
+
+            context.UserEvents.Add(userEvent);
+
         }
 
         public IEnumerable<UserEvent> GetEvents()
         {
             return context.UserEvents.ToList();
+        }
+
+        public bool SaveChanges()
+        {
+            return (context.SaveChanges() >= 0);
         }
     }
 }
