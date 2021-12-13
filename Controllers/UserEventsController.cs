@@ -24,14 +24,14 @@ namespace UserEventsApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ReturnUserEventDto>> GetEvents()
+        public ActionResult<UserEventDataDto> GetUserEventData()
         {
-            var userEvents = repo.GetEvents();
-            return Ok(mapper.Map<IEnumerable<ReturnUserEventDto>>(userEvents));
+            var userEventsData = repo.GetUserEventData();
+            return Ok(mapper.Map<UserEventDataDto>(userEventsData));
         }
 
         [HttpGet("{id}", Name="GetEventById")]
-        public ActionResult<ReturnUserEventDto> GetEventById(int id)
+        public ActionResult<UserEventDto> GetEventById(int id)
         {
             var userEvent = repo.GetEventById(id);
 
@@ -40,7 +40,7 @@ namespace UserEventsApi.Controllers
                 return NotFound();
             }
 
-            return Ok(mapper.Map<ReturnUserEventDto>(userEvent));
+            return Ok(mapper.Map<UserEventDto>(userEvent));
         }
 
         [HttpPost]
@@ -51,15 +51,15 @@ namespace UserEventsApi.Controllers
                 return BadRequest();
             }
 
-            var userEventModel = mapper.Map<UserEvent>(newEvent);
+            var userEvent = mapper.Map<UserEvent>(newEvent);
 
-            userEventModel.TimeStamp = DateTimeOffset.UtcNow;
+            userEvent.TimeStamp = DateTimeOffset.UtcNow;
 
-            repo.AddEvent(userEventModel);
+            repo.AddEvent(userEvent);
 
             repo.SaveChanges();
 
-            return CreatedAtRoute(nameof(GetEventById), new { userEventModel.Id }, userEventModel);
+            return CreatedAtRoute(nameof(GetEventById), new { userEvent.Id }, userEvent);
         }
 
 

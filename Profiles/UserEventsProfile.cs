@@ -8,8 +8,10 @@ namespace UserEventsApi.Profiles
     {
         public UserEventsProfile()
         {
-            CreateMap<UserEvent, ReturnUserEventDto>();
+            CreateMap<UserEvent, UserEventDto>();
+            CreateMap<UserEventData, UserEventDataDto>();
             CreateMap<CreateUserEventDto, UserEvent>();
+            
         }
     }
 }

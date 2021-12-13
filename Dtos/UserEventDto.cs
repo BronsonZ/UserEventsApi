@@ -2,7 +2,7 @@
 
 namespace UserEventsApi.Dtos
 {
-    public class ReturnUserEventDto
+    public class UserEventDto
     {
         public int Id { get; set; }
 
