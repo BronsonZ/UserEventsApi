@@ -15,7 +15,7 @@ namespace UserEventsApi.Data
         }
         public void AddEvent(UserEvent userEvent)
         {
-            if( userEvent == null)
+            if(userEvent == null)
             {
                 throw new ArgumentNullException(nameof(userEvent));
             }
@@ -27,6 +27,11 @@ namespace UserEventsApi.Data
         public IEnumerable<UserEvent> GetEvents()
         {
             return context.UserEvents.ToList();
+        }
+
+        public UserEvent GetEventById(int id)
+        {
+            return context.UserEvents.FirstOrDefault(x => x.Id == id);
         }
 
         public bool SaveChanges()

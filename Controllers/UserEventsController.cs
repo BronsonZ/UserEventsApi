@@ -9,7 +9,7 @@ using AutoMapper;
 
 namespace UserEventsApi.Controllers
 {
-    
+
     [ApiController]
     [Route("api/userevents")]
     public class UserEventsController : ControllerBase
@@ -24,18 +24,33 @@ namespace UserEventsApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UserEventDto>> GetEvents()
+        public ActionResult<IEnumerable<ReturnUserEventDto>> GetEvents()
         {
-            //var events = repo.GetEvents().Select(userEvent => userEvent.AsDto());
-            var events = repo.GetEvents();
+            var userEvents = repo.GetEvents();
+            return Ok(mapper.Map<IEnumerable<ReturnUserEventDto>>(userEvents));
+        }
 
-            return Ok(mapper.Map<IEnumerable<UserEventDto>>(events));
-            
+        [HttpGet("{id}", Name="GetEventById")]
+        public ActionResult<ReturnUserEventDto> GetEventById(int id)
+        {
+            var userEvent = repo.GetEventById(id);
+
+            if(userEvent == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<ReturnUserEventDto>(userEvent));
         }
 
         [HttpPost]
         public ActionResult<CreateUserEventDto> AddEvent(CreateUserEventDto newEvent)
         {
+            if(newEvent == null)
+            {
+                return BadRequest();
+            }
+
             var userEventModel = mapper.Map<UserEvent>(newEvent);
 
             userEventModel.TimeStamp = DateTimeOffset.UtcNow;
@@ -44,7 +59,7 @@ namespace UserEventsApi.Controllers
 
             repo.SaveChanges();
 
-            return Ok(userEventModel);
+            return CreatedAtRoute(nameof(GetEventById), new { userEventModel.Id }, userEventModel);
         }
 
 

@@ -19,6 +19,11 @@ namespace UserEventsApi.Data
             return userEvent;
         }
 
+        public UserEvent GetEventById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<UserEvent> GetEvents()
         {
             return _events;

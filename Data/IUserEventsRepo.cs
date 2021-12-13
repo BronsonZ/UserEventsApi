@@ -8,6 +8,8 @@ namespace UserEventsApi.Data
         bool SaveChanges();
         IEnumerable<UserEvent> GetEvents();
 
+        UserEvent GetEventById(int id);
+
         void AddEvent(UserEvent userEvent);
 
     }
