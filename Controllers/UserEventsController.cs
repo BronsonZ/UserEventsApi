@@ -46,7 +46,7 @@ namespace UserEventsApi.Controllers
         [HttpPost]
         public ActionResult<CreateUserEventDto> AddEvent(CreateUserEventDto newEvent)
         {
-            if(newEvent == null)
+            if(newEvent == null || newEvent.Username == null || newEvent.ActionTaken == null || newEvent.Data == null)
             {
                 return BadRequest();
             }
